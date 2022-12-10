@@ -130,7 +130,6 @@ func handler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		}
 		flag = 1
 	} else if m.Content == "💀" {
-		s.Close()
 		flag = 2
 	}
 
@@ -138,6 +137,7 @@ func handler(s *discordgo.Session, m *discordgo.MessageCreate) {
 	if flag > 0 {
 		s.MessageReactionAdd(m.ChannelID, m.ID, "✅")
 		if flag > 1 {
+			s.Close()
 			os.Exit(0)
 		}
 	}
