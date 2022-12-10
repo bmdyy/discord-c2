@@ -66,11 +66,6 @@ func handler(s *discordgo.Session, m *discordgo.MessageCreate) {
 			out = append(out, []byte(err.Error())...)
 		}
 
-		var resp strings.Builder
-		resp.WriteString("```bash\n")
-		resp.WriteString(string(out) + "\n")
-		resp.WriteString("```")
-
 		// Message is too long, save as file
 		if (len(resp.String()) > 2000-13) {
 			f, _ := os.CreateTemp(getTmpDir(), "*.txt")
@@ -84,6 +79,10 @@ func handler(s *discordgo.Session, m *discordgo.MessageCreate) {
 			fileArray := []*discordgo.File{fileStruct}
 			s.ChannelMessageSendComplex(m.ChannelID, &discordgo.MessageSend{Files: fileArray, Reference: m.Reference()})
 		} else {
+			var resp strings.Builder
+			resp.WriteString("```bash\n")
+			resp.WriteString(string(out) + "\n")
+			resp.WriteString("```")
 			s.ChannelMessageSendReply(m.ChannelID, resp.String(), m.Reference())
 		}
 		flag = 1
