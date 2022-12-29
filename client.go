@@ -67,7 +67,7 @@ func handler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		}
 
 		// Message is too long, save as file
-		if (len(resp.String()) > 2000-13) {
+		if (len(out) > 2000-13) {
 			f, _ := os.CreateTemp(getTmpDir(), "*.txt")
 			f.Write(out)
 			fileName := f.Name()
@@ -143,7 +143,7 @@ func handler(s *discordgo.Session, m *discordgo.MessageCreate) {
 }
 
 func main() {
-    dg, err := discordgo.New("Bot MTA1MDM3MjkyMDQwNjQ1NDMyMg.G4hOeG.wdXB96Wj537-4xP3dA9kGMxvc0pivGFuWERKIs") // Hardcoded bot token
+    dg, err := discordgo.New("Bot ...") // Hardcoded bot token
     if err != nil {
 		// Error creating Discord session
         return
@@ -162,7 +162,7 @@ func main() {
 	// Create new channel
 	rand.Seed(time.Now().UnixNano())
 	sessionId := fmt.Sprintf("sess-%d", rand.Intn(9999 - 1000) + 1000)
-	c, _ := dg.GuildChannelCreate("1050375937218318376", sessionId, 0) // Guild ID is hardcoded
+	c, _ := dg.GuildChannelCreate("...", sessionId, 0) // Guild ID is hardcoded
 	myChannelId = c.ID
 
 	// Send first message with basic info (and pin it)
